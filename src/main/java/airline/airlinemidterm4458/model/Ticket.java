@@ -17,6 +17,10 @@ public class Ticket {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "flight_id",nullable = false)
+    Flight flight;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id",nullable = false)
     Customer customer;
 

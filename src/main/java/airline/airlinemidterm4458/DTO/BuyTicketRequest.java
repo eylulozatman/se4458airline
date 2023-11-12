@@ -1,9 +1,12 @@
 package airline.airlinemidterm4458.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class BuyTicketRequest {
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     Date flightDate;
     String fromCity;
     String toCity;

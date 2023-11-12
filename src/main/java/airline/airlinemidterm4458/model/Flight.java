@@ -5,12 +5,12 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+
+@Data
 @Entity(name = "flight")
 @Table(name="flight")
-@Data
 public class Flight {
 
-    Long flightNo;
     String fromCity;
     String toCity;
     @JsonFormat(pattern="yyyy-MM-dd")

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+
 public class NewFlightRequest {
 
     @JsonFormat(pattern="yyyy-MM-dd")

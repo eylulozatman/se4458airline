@@ -22,4 +22,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     List<Ticket> findAllByCustomer_Id(Long CustomerID);
 
+
 }

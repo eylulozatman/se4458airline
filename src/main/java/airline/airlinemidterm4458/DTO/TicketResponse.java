@@ -1,12 +1,27 @@
 package airline.airlinemidterm4458.DTO;
 
 import java.util.Date;
+import java.util.Optional;
 
 public class TicketResponse {
 
     String CustomerName;
     Date flightDate;
     String message;
+    Long flightNumber;
+
+    public TicketResponse() {
+    }
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    public Long getFlightNumber() {
+        return flightNumber;
+    }
+
+    public void setFlightNumber(Long flightNumber) {
+        this.flightNumber = flightNumber;
+    }
 
     public String getCustomerName() {
         return CustomerName;
@@ -28,7 +43,5 @@ public class TicketResponse {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+
 }

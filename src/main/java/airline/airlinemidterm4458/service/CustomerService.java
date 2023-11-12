@@ -18,7 +18,7 @@ public class CustomerService {
        customerRepository.findByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
         if (customer != null)
         {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("logged in succesfully",HttpStatus.OK);
         }
 
         return null;
