@@ -18,6 +18,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerService implements UserDetailsService {
@@ -34,5 +37,22 @@ public class CustomerService implements UserDetailsService {
         }
 
         return customer;
+    }
+
+    public ResponseEntity<?> deleteCustomer(Long id)
+    {
+        Optional<Customer> customer = customerRepository.findById(id);
+        if (customer.isPresent())
+        {
+            customerRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    }
+
+    public List<Customer> getAllCustomers() {
+
+        return customerRepository.findAll();
     }
 }

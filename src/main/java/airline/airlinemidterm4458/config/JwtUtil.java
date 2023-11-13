@@ -1,16 +1,15 @@
 package airline.airlinemidterm4458.config;
 
-import airline.airlinemidterm4458.model.Customer;
-import airline.airlinemidterm4458.repository.CustomerRepository;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,12 +17,8 @@ import java.util.function.Function;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
-
 @Service
 public class JwtUtil {
-
-    @Autowired
-    CustomerRepository customerRepository;
 
     @Value("${token.signing.key}")
     private String jwtSigningKey;
@@ -36,7 +31,6 @@ public class JwtUtil {
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
-
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
@@ -71,7 +65,7 @@ public class JwtUtil {
     }
 
     private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
+        byte[] keyBytes = Base64.getDecoder().decode(jwtSigningKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }
