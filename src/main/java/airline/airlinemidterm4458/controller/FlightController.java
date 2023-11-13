@@ -6,6 +6,7 @@ import airline.airlinemidterm4458.DTO.NewFlightRequest;
 import airline.airlinemidterm4458.DTO.QueryTicketRequest;
 import airline.airlinemidterm4458.model.Flight;
 import airline.airlinemidterm4458.service.FlightService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(value = "Flight controller ")
 @RestController
-@RequestMapping("/flight")
+@RequestMapping("/api/flight")
 public class FlightController {
 
     @Autowired

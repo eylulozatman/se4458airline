@@ -1,37 +1,38 @@
 package airline.airlinemidterm4458.service;
+import airline.airlinemidterm4458.DTO.AuthenticationResponse;
 import airline.airlinemidterm4458.DTO.LoginRequest;
+import airline.airlinemidterm4458.config.JwtUtil;
 import airline.airlinemidterm4458.model.Customer;
 import airline.airlinemidterm4458.repository.CustomerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerService {
+@RequiredArgsConstructor
+public class CustomerService implements UserDetailsService {
 
-    @Autowired
-    CustomerRepository customerRepository;
-    public ResponseEntity<String> login(LoginRequest loginRequest)
-    {
-        Customer customer =
-       customerRepository.findByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
-        if (customer != null)
-        {
-            return new ResponseEntity<>("logged in succesfully",HttpStatus.OK);
+    private final CustomerRepository customerRepository;
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Customer customer = customerRepository.findByUsername(username);
+
+        if (customer == null) {
+            throw new UsernameNotFoundException("customer not found: " + username);
         }
 
-        return null;
-    }
-
-    public Customer getOneUserByUsername(String username)
-    {
-        return customerRepository.findByUsername(username);
-    }
-
-    public ResponseEntity<String> saveNewUser(Customer customer)
-    {
-         customerRepository.save(customer);
-         return new ResponseEntity<>(HttpStatus.CREATED);
+        return customer;
     }
 }
