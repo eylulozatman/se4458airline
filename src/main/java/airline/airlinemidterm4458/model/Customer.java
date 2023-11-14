@@ -3,12 +3,10 @@ package airline.airlinemidterm4458.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+
 
 @Entity(name = "customer")
 @Table(name="customer")
@@ -22,6 +20,11 @@ public class Customer implements UserDetails {
     private String lastname;
     private String username;
     private String password;
+
+    private String decodedPassword;
+
+
+
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
@@ -88,5 +91,21 @@ public class Customer implements UserDetails {
 
     public Long getId() {
         return id;
+    }
+
+    public String getDecodedPassword() {
+        return decodedPassword;
+    }
+
+    public void setDecodedPassword(String decodedPassword) {
+        this.decodedPassword = decodedPassword;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

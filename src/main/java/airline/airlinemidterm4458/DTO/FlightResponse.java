@@ -7,21 +7,22 @@ import java.util.Date;
 
 public class FlightResponse {
 
-
-    String location;
-    @JsonFormat(pattern="yyyy-MM-dd")
-    Date flightDate;
-    int price;
-    int numOfSeats;
     String message;
     Long flightNumber;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    Date flightDate;
+    String location;
+    String price;
+    int numOfSeats;
+
 
     public FlightResponse(Flight flight)
     {
+        this.message = "Flight Detail:";
         this.flightDate =flight.getFlightDate();
         this.flightNumber = flight.getId();
         this.location = "from " + flight.getFromCity() + " to " + flight.getToCity();
-        this.price = flight.getPrice();
+        this.price = flight.getPrice() + "$"  ;
         this.numOfSeats = flight.getNumOfSeats();
     }
 
@@ -53,11 +54,11 @@ public class FlightResponse {
         this.flightDate = flightDate;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

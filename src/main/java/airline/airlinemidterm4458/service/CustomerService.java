@@ -1,25 +1,18 @@
 package airline.airlinemidterm4458.service;
-import airline.airlinemidterm4458.DTO.AuthenticationResponse;
-import airline.airlinemidterm4458.DTO.LoginRequest;
-import airline.airlinemidterm4458.config.JwtUtil;
+import airline.airlinemidterm4458.DTO.CustomerResponse;
 import airline.airlinemidterm4458.model.Customer;
 import airline.airlinemidterm4458.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,11 +41,18 @@ public class CustomerService implements UserDetailsService {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
     }
+    public List<CustomerResponse> getAllCustomers() {
 
-    public List<Customer> getAllCustomers() {
+        if(customerRepository != null)
+        {
+            return customerRepository.findAll()
+                    .stream()
+                    .map(CustomerResponse::new)
+                    .collect(Collectors.toList());
+        }
 
-        return customerRepository.findAll();
+        return null;
+
     }
 }

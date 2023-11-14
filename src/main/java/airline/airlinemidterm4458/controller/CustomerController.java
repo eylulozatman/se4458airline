@@ -1,7 +1,7 @@
 package airline.airlinemidterm4458.controller;
 
 
-import airline.airlinemidterm4458.model.Customer;
+import airline.airlinemidterm4458.DTO.CustomerResponse;
 import airline.airlinemidterm4458.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class CustomerController {
     }
 
     @GetMapping("/all-customers")
-    public List<Customer> getAllCustomers()
+    public List<CustomerResponse> getAllCustomers()
     {
         return customerService.getAllCustomers();
     }

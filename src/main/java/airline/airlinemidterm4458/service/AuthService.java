@@ -7,17 +7,13 @@ import airline.airlinemidterm4458.config.JwtUtil;
 import airline.airlinemidterm4458.model.Customer;
 import airline.airlinemidterm4458.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -35,7 +31,7 @@ public class AuthService {
             if (user != null) {
                 System.out.println("xxxxxxxx");
                 var jwt = jwtService.generateToken(user);
-                return AuthenticationResponse.builder().token(jwt).build();
+                return AuthenticationResponse.builder().token("Bearer " + jwt).build();
             } else {
                 System.out.println("vvv");
                 return AuthenticationResponse.builder().token("invalid username or password").build();
@@ -54,7 +50,7 @@ public class AuthService {
        else {
             Customer customer = new Customer();
             String password = passwordEncoder.encode(registerRequest.getPassword());
-
+            customer.setDecodedPassword(registerRequest.getPassword());
             customer.setUsername(registerRequest.getUsername());
             customer.setName(registerRequest.getName());
             customer.setLastname(registerRequest.getLastname());

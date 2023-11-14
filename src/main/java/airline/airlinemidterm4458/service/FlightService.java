@@ -1,6 +1,7 @@
 package airline.airlinemidterm4458.service;
 
 
+import airline.airlinemidterm4458.DTO.CustomerResponse;
 import airline.airlinemidterm4458.DTO.FlightResponse;
 import airline.airlinemidterm4458.DTO.NewFlightRequest;
 import airline.airlinemidterm4458.DTO.QueryTicketRequest;
@@ -45,20 +46,29 @@ public class FlightService {
 
     }
 
-    public List<Flight> getflights() {
-        return flightRepository.findAll();
+    public List<FlightResponse> getflights() {
+
+        if(flightRepository != null)
+        {
+            return flightRepository.findAll()
+                    .stream()
+                    .map(FlightResponse::new)
+                    .collect(Collectors.toList());
+        }
+
+        return null;
     }
 
     public ResponseEntity<?> queryFlights(QueryTicketRequest queryTicketRequest)
     {
 
-        String queryStr = "f.flightDate = "  + queryTicketRequest.getDate() +  " AND f.fromCity = " +
-        queryTicketRequest.getFromCity() + " AND f.toCity = " + queryTicketRequest.getToCity() + " AND f.numOfSeats > " + queryTicketRequest.getNumberOfPeople();
-        List<Flight> flights = flightRepository.findFlightsByCondition(queryStr);
-        List<FlightResponse> flightResponses = flights.stream()
-                .map(FlightResponse::new)
-                .collect(Collectors.toList());
-        return (ResponseEntity<?>) flightResponses;
+        Flight flight = flightRepository.findByFlightDateAndFromCityAndToCity(queryTicketRequest.getDate(), queryTicketRequest.getFromCity(), queryTicketRequest.getToCity());
+       if(flight != null && flight.getNumOfSeats() > queryTicketRequest.getNumberOfPeople())
+       {
+           FlightResponse flightResponse = new FlightResponse(flight);
+           return new ResponseEntity<>(flightResponse,HttpStatus.OK);
+       }
+       return  new ResponseEntity<>("no available flight",HttpStatus.NOT_FOUND);
 
     }
 

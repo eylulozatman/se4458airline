@@ -4,9 +4,8 @@ package airline.airlinemidterm4458.controller;
 import airline.airlinemidterm4458.DTO.FlightResponse;
 import airline.airlinemidterm4458.DTO.NewFlightRequest;
 import airline.airlinemidterm4458.DTO.QueryTicketRequest;
-import airline.airlinemidterm4458.model.Flight;
 import airline.airlinemidterm4458.service.FlightService;
-import io.swagger.annotations.Api;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(value = "Flight controller ")
 @RestController
 @RequestMapping("/api/flight")
 public class FlightController {
@@ -23,7 +21,7 @@ public class FlightController {
     FlightService flightService;
 
     @GetMapping("/get-all-flights")
-    public List<Flight> getFlights() {
+    public List<FlightResponse> getFlights() {
         return flightService.getflights();
     }
 
@@ -32,7 +30,7 @@ public class FlightController {
         return flightService.createFlight(newFlightRequest);
     }
 
-    @GetMapping("/query-flight")
+    @PostMapping("/query-flight")
     public  ResponseEntity<?> queryFlights(@RequestBody QueryTicketRequest queryTicketRequest) {
         if (queryTicketRequest != null) {
             return flightService.queryFlights(queryTicketRequest);

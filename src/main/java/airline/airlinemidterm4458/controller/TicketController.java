@@ -6,8 +6,6 @@ import airline.airlinemidterm4458.model.Customer;
 import airline.airlinemidterm4458.repository.CustomerRepository;
 import airline.airlinemidterm4458.service.AuthService;
 import airline.airlinemidterm4458.service.TicketService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-@Api(value = "Ticket controller ")
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/ticket")
 public class TicketController {
@@ -26,10 +25,13 @@ public class TicketController {
     @Autowired
     CustomerRepository customerRepository;
 
-
-    @ApiOperation(value = "buy-ticket")
+    @GetMapping("/get-tickets")
+    public List<TicketResponse> getAllTickets()
+    {
+       return ticketService.getAllTickets();
+    }
     @PostMapping("/buy-ticket")
-    public ResponseEntity<TicketResponse> buyTicket(@RequestBody BuyTicketRequest buyTicketRequest,Authentication authentication)
+    public ResponseEntity<?> buyTicket(@RequestBody BuyTicketRequest buyTicketRequest,Authentication authentication)
     {
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -41,7 +43,6 @@ public class TicketController {
     }
 
     }
-    @ApiOperation(value = "delete-ticket")
     @DeleteMapping("/delete-ticket")
     public  ResponseEntity<String> deleteTicket(@RequestParam (value = "id") Long id)
     {
