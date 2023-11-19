@@ -6,6 +6,7 @@ import airline.airlinemidterm4458.DTO.TicketResponse;
 import airline.airlinemidterm4458.model.Customer;
 import airline.airlinemidterm4458.model.Flight;
 import airline.airlinemidterm4458.model.Ticket;
+import airline.airlinemidterm4458.repository.CustomerRepository;
 import airline.airlinemidterm4458.repository.FlightRepository;
 import airline.airlinemidterm4458.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
+    @Autowired
+    CustomerRepository customerRepository;
 
     public ResponseEntity<?> buyOneTicket(BuyTicketRequest buyTicketRequest, Customer currentCustomer)
     {
@@ -71,6 +74,24 @@ public class TicketService {
                     .stream()
                     .map(t -> new TicketResponse(t,null))
                     .collect(Collectors.toList());
+        }
+
+        return null;
+    }
+
+    public List<TicketResponse> getTicketsByCustomerID(Long id)
+    {
+        if (customerRepository.findById(id).isPresent())
+        {
+            if(ticketRepository != null) {
+                return ticketRepository.findAllByCustomer_Id(id)
+                        .stream()
+                        .map(t -> new TicketResponse(t,null))
+                        .collect(Collectors.toList());
+            }
+        }
+        else {
+            return null;
         }
 
         return null;

@@ -36,7 +36,8 @@ public class FlightController {
             return flightService.queryFlights(queryTicketRequest);
         }
         else
-            return new ResponseEntity<>("please fill in the required fields", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("please fill in the required fields: " +
+                    "date, from city, to city, number of people", HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/delete-flight")

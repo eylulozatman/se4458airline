@@ -30,6 +30,12 @@ public class TicketController {
     {
        return ticketService.getAllTickets();
     }
+
+    @GetMapping("/get-ticket-byCustomerId")
+    public List<TicketResponse> getTicketsByCustomerID(@RequestParam (value = "id") Long id)
+    {
+        return ticketService.getTicketsByCustomerID(id);
+    }
     @PostMapping("/buy-ticket")
     public ResponseEntity<?> buyTicket(@RequestBody BuyTicketRequest buyTicketRequest,Authentication authentication)
     {

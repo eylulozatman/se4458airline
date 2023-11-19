@@ -40,7 +40,7 @@ public class CustomerService implements UserDetailsService {
             customerRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     public List<CustomerResponse> getAllCustomers() {
 

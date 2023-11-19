@@ -29,8 +29,8 @@ public class TicketResponse {
         this.ticketNumber = ticket.getId();
         this.flightDate = ticket.getFlight().getFlightDate();
         this.flightNumber = ticket.getFlight().getId();
-        if (customerName == null)
-        {     //for get all tickets
+        if (customerName.isEmpty())
+        {     //for get  tickets
             this.customerName = ticket.getCustomer().getName() + " " + ticket.getCustomer().getLastname();
         }
         else {  //for buy ticket

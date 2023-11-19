@@ -8,13 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer,Long> {
+public interface CustomerRepository extends JpaRepository<Customer,Long > {
 
     @Override
     List<Customer> findAll();
-
-    @Override
-    Optional<Customer> findById(Long aLong);
 
     Customer findByUsername(String username);
 
