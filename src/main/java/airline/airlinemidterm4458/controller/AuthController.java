@@ -2,6 +2,7 @@ package airline.airlinemidterm4458.controller;
 
 
 import airline.airlinemidterm4458.DTO.AuthenticationResponse;
+import airline.airlinemidterm4458.DTO.CustomerResponse;
 import airline.airlinemidterm4458.DTO.LoginRequest;
 import airline.airlinemidterm4458.DTO.RegisterRequest;
 import airline.airlinemidterm4458.model.Customer;
@@ -30,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
 
         return  authService.register(registerRequest);
 

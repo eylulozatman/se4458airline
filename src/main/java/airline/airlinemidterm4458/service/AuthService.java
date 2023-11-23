@@ -1,6 +1,7 @@
 package airline.airlinemidterm4458.service;
 
 import airline.airlinemidterm4458.DTO.AuthenticationResponse;
+import airline.airlinemidterm4458.DTO.CustomerResponse;
 import airline.airlinemidterm4458.DTO.LoginRequest;
 import airline.airlinemidterm4458.DTO.RegisterRequest;
 import airline.airlinemidterm4458.config.JwtUtil;
@@ -40,7 +41,7 @@ public class AuthService {
             return AuthenticationResponse.builder().token("Bir hata oluştu").build();
         }
     }
-    public ResponseEntity<String> register(RegisterRequest registerRequest) {
+    public ResponseEntity<?> register(RegisterRequest registerRequest) {
 
         if(registerRequest == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -54,11 +55,13 @@ public class AuthService {
             customer.setName(registerRequest.getName());
             customer.setLastname(registerRequest.getLastname());
             customer.setPassword(password);
+
             if (customerRepository.findByUsername(customer.getUsername()) != null) {
-               return  new ResponseEntity<>("this username is taken",HttpStatus.BAD_REQUEST);
+               return  new ResponseEntity<>("this username already used",HttpStatus.BAD_REQUEST);
            }
             customerRepository.save(customer);
-            return new ResponseEntity<>("Customer saved",HttpStatus.CREATED);
+            CustomerResponse customerResponse = new CustomerResponse(customer);
+            return new ResponseEntity<>(customerResponse,HttpStatus.CREATED);
 
         }
     }

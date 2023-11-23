@@ -24,4 +24,5 @@ public interface FlightRepository extends JpaRepository<Flight,Long> {
 
     Flight findByFlightDateAndFromCityAndToCity(Date flightDate,String fromCity,String toCity);
 
+
 }

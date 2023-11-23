@@ -20,6 +20,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Override
     Optional<Ticket> findById(Long aLong);
 
+    List<Ticket> findByFlight_Id(Long flightID);
+
     List<Ticket> findAllByCustomer_Id(Long CustomerID);
 
 
