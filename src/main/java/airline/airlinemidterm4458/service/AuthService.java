@@ -29,11 +29,10 @@ public class AuthService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             Customer user = customerRepository.findByUsername(loginRequest.getUsername());
             if (user != null) {
-                System.out.println("xxxxxxxx");
                 var jwt = jwtService.generateToken(user);
                 return AuthenticationResponse.builder().token("Bearer " + jwt).build();
             } else {
-                System.out.println("vvv");
+
                 return AuthenticationResponse.builder().token("invalid username or password").build();
             }
         } catch (Exception e) {

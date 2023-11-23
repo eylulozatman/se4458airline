@@ -36,7 +36,7 @@ public class TicketService {
                                        buyTicketRequest.getFromCity(), buyTicketRequest.getToCity());
         if (flight == null)
         {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No flight according to this criteria",HttpStatus.NOT_FOUND);
         }
         else {
             flight.setNumOfSeats(flight.getNumOfSeats() -1 );
@@ -72,7 +72,7 @@ public class TicketService {
         if(ticketRepository != null) {
             return ticketRepository.findAll()
                     .stream()
-                    .map(t -> new TicketResponse(t,null))
+                    .map(t -> new TicketResponse(t, Optional.ofNullable(t.getCustomer().getName())))
                     .collect(Collectors.toList());
         }
 
@@ -86,7 +86,7 @@ public class TicketService {
             if(ticketRepository != null) {
                 return ticketRepository.findAllByCustomer_Id(id)
                         .stream()
-                        .map(t -> new TicketResponse(t,null))
+                        .map(t -> new TicketResponse(t, Optional.ofNullable(t.getCustomer().getName())))
                         .collect(Collectors.toList());
             }
         }

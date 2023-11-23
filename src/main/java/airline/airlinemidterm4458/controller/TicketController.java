@@ -4,7 +4,6 @@ import airline.airlinemidterm4458.DTO.BuyTicketRequest;
 import airline.airlinemidterm4458.DTO.TicketResponse;
 import airline.airlinemidterm4458.model.Customer;
 import airline.airlinemidterm4458.repository.CustomerRepository;
-import airline.airlinemidterm4458.service.AuthService;
 import airline.airlinemidterm4458.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +35,7 @@ public class TicketController {
     {
         return ticketService.getTicketsByCustomerID(id);
     }
+
     @PostMapping("/buy-ticket")
     public ResponseEntity<?> buyTicket(@RequestBody BuyTicketRequest buyTicketRequest,Authentication authentication)
     {

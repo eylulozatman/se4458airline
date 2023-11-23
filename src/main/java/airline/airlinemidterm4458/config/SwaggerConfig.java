@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
     // http://localhost:8282/swagger-ui/index.html#/
+
+    //https://airlinemidterm4458.azurewebsites.net/swagger-ui/index.html#/
     @Bean
     public GroupedOpenApi customApi() {
         return GroupedOpenApi.builder()
@@ -15,4 +17,6 @@ public class SwaggerConfig {
                 .pathsToMatch("/api/**")
                 .build();
     }
+
+
 }
