@@ -37,8 +37,8 @@ public class AuthService {
                 return AuthenticationResponse.builder().token("invalid username or password").build();
             }
         } catch (Exception e) {
-            System.out.println("Hata: " + e.getMessage());
-            return AuthenticationResponse.builder().token("Bir hata oluştu").build();
+            System.out.println("Error: " + e.getMessage());
+            return AuthenticationResponse.builder().token("An error occurred").build();
         }
     }
     public ResponseEntity<?> register(RegisterRequest registerRequest) {

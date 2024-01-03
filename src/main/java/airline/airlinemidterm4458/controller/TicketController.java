@@ -44,9 +44,10 @@ public class TicketController {
         String username = userDetails.getUsername();
         Customer currentCustomer = customerRepository.findByUsername(username);
         return ticketService.buyOneTicket(buyTicketRequest, currentCustomer);
-    } else {
+        }
+        else {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-    }
+        }
 
     }
     @DeleteMapping("/delete-ticket")

@@ -1,6 +1,5 @@
 package airline.airlinemidterm4458.controller;
 
-
 import airline.airlinemidterm4458.DTO.FlightResponse;
 import airline.airlinemidterm4458.DTO.NewFlightRequest;
 import airline.airlinemidterm4458.DTO.QueryTicketRequest;
